@@ -68,6 +68,7 @@ export const CHAIN_ID_TO_BACKEND_NAME: { [key: number]: Chain } = {
   [SupportedChainId.OPTIMISM]: Chain.Optimism,
   [SupportedChainId.OPTIMISM_GOERLI]: Chain.Optimism,
   [SupportedChainId.BNB]: Chain.Bnb,
+  // [SupportedChainId.TRUSTKEY]: Chain.Trustkey,
 }
 
 export function chainIdToBackendName(chainId: number | undefined) {

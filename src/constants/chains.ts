@@ -21,8 +21,9 @@ export enum SupportedChainId {
 
   CELO = 42220,
   CELO_ALFAJORES = 44787,
-
+  
   BNB = 56,
+  TRUSTKEY = 11968,
 }
 
 export const CHAIN_IDS_TO_NAMES = {
@@ -37,6 +38,8 @@ export const CHAIN_IDS_TO_NAMES = {
   [SupportedChainId.OPTIMISM]: 'optimism',
   [SupportedChainId.OPTIMISM_GOERLI]: 'optimism_goerli',
   [SupportedChainId.BNB]: 'bnb',
+  [SupportedChainId.TRUSTKEY]: 'trustkey',
+
 }
 
 /**
@@ -57,6 +60,7 @@ export const SUPPORTED_GAS_ESTIMATE_CHAIN_IDS = [
   SupportedChainId.OPTIMISM,
   SupportedChainId.ARBITRUM_ONE,
   SupportedChainId.BNB,
+  SupportedChainId.TRUSTKEY
 ] as const
 
 /**
@@ -90,6 +94,7 @@ export const L1_CHAIN_IDS = [
   SupportedChainId.CELO,
   SupportedChainId.CELO_ALFAJORES,
   SupportedChainId.BNB,
+  SupportedChainId.TRUSTKEY
 ] as const
 
 export type SupportedL1ChainId = typeof L1_CHAIN_IDS[number]
