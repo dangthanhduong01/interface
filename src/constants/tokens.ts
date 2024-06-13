@@ -424,13 +424,6 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } =
     'WBNB',
     'Wrapped BNB'
   ),
-  [SupportedChainId.TRUSTKEY]: new Token(
-    SupportedChainId.TRUSTKEY,
-    '0x528f15986Dd88Cc90ad134F1c9d759729Ae925Af',
-    18,
-    'WETH',
-    'Wraped Trustkey'
-  ),
 }
 
 export function isCelo(chainId: number): chainId is SupportedChainId.CELO | SupportedChainId.CELO_ALFAJORES {
