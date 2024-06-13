@@ -3,6 +3,7 @@ import { Currency, Token } from '@uniswap/sdk-core'
 import { SupportedChainId } from 'constants/chains'
 
 import {
+  AC,
   AMPL,
   BTC_BSC,
   BUSD_BSC,
@@ -19,10 +20,12 @@ import {
   DAI_POLYGON,
   ETH_BSC,
   ETH2X_FLI,
+  FC,
   FEI,
   FRAX,
   FRAX_BSC,
   FXS,
+  LC,
   MATIC_BSC,
   nativeOnChain,
   PORTAL_ETH_CELO,
@@ -204,6 +207,8 @@ export const COMMON_BASES: ChainCurrencyList = {
     BTC_BSC,
     BUSD_BSC,
   ],
+
+  [SupportedChainId.TRUSTKEYS]: [nativeOnChain(SupportedChainId.TRUSTKEYS), FC, AC, LC],
 }
 
 // used to construct the list of all pairs we consider by default in the frontend

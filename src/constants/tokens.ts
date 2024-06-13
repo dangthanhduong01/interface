@@ -351,6 +351,34 @@ export const BUSD_BSC = new Token(
   'BUSD',
   'BUSD'
 )
+//trustkeys native coin
+const TRUSTKEYS = new Token(
+  SupportedChainId.TRUSTKEYS,
+  '0x994d5cb5c880c5b674d047d96f41b517b3d1a2ac',
+  18,
+  'TRUSTK',
+  'TrustKeys'
+)
+// eslint-disable-next-line import/no-unused-modules
+export const FC = new Token(
+  SupportedChainId.TRUSTKEYS,
+  '0x1ccF6A9b71c16E226C0Dff0B50EDd875375C84D0',
+  18,
+  'FC',
+  'FIRSTCOIN'
+)
+
+// eslint-disable-next-line import/no-unused-modules
+export const AC = new Token(SupportedChainId.TRUSTKEYS, '0x7fA9d0EA98de26e3497455CbA80fbEebEdF7f6E9', 18, 'AC', 'ACOIN')
+
+// eslint-disable-next-line import/no-unused-modules
+export const LC = new Token(
+  SupportedChainId.TRUSTKEYS,
+  '0xd8DCB436f137d6D319534FA2d30B64B155D099f5',
+  18,
+  'LC',
+  'LASTCOIN'
+)
 
 export const DAI_BSC = new Token(SupportedChainId.BNB, '0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3', 18, 'DAI', 'DAI')
 
@@ -424,10 +452,22 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } =
     'WBNB',
     'Wrapped BNB'
   ),
+  [SupportedChainId.TRUSTKEYS]: new Token(
+    SupportedChainId.TRUSTKEYS,
+    '0x528f15986Dd88Cc90ad134F1c9d759729Ae925Af',
+    18,
+    'WTRUSTK',
+    'Wrapped Trustkeys'
+  ),
 }
 
 export function isCelo(chainId: number): chainId is SupportedChainId.CELO | SupportedChainId.CELO_ALFAJORES {
   return chainId === SupportedChainId.CELO_ALFAJORES || chainId === SupportedChainId.CELO
+}
+
+// eslint-disable-next-line import/no-unused-modules
+export function isTrustkeys(chainId: number): chainId is SupportedChainId.TRUSTKEYS {
+  return chainId === SupportedChainId.TRUSTKEYS
 }
 
 function getCeloNativeCurrency(chainId: number) {
@@ -438,6 +478,14 @@ function getCeloNativeCurrency(chainId: number) {
       return CELO_CELO
     default:
       throw new Error('Not celo')
+  }
+}
+function getTrustkeysnativeCurrency(chainId: number) {
+  switch (chainId) {
+    case SupportedChainId.TRUSTKEYS:
+      return TRUSTKEYS
+    default:
+      throw new Error('Not trustkeys')
   }
 }
 
@@ -485,6 +533,24 @@ class BscNativeCurrency extends NativeCurrency {
   }
 }
 
+class TRUSTKNativeCurrency extends NativeCurrency {
+  equals(other: Currency): boolean {
+    return other.isNative && other.chainId === this.chainId
+  }
+
+  get wrapped(): Token {
+    if (!isTrustkeys(this.chainId)) throw new Error('Not tk')
+    const wrapped = WRAPPED_NATIVE_CURRENCY[this.chainId]
+    invariant(wrapped instanceof Token)
+    return wrapped
+  }
+
+  public constructor(chainId: number) {
+    if (!isTrustkeys(chainId)) throw new Error('Not tk')
+    super(chainId, 18, 'TRUSTK', 'TRUSTK')
+  }
+}
+
 class ExtendedEther extends Ether {
   public get wrapped(): Token {
     const wrapped = WRAPPED_NATIVE_CURRENCY[this.chainId]
@@ -499,6 +565,9 @@ class ExtendedEther extends Ether {
   }
 }
 
+// else if (isTrustkeys(chainId)) {
+//   nativeCurrency = getTrustkeysnativeCurrency(chainId)
+// }
 const cachedNativeCurrency: { [chainId: number]: NativeCurrency | Token } = {}
 export function nativeOnChain(chainId: number): NativeCurrency | Token {
   if (cachedNativeCurrency[chainId]) return cachedNativeCurrency[chainId]
@@ -509,6 +578,8 @@ export function nativeOnChain(chainId: number): NativeCurrency | Token {
     nativeCurrency = getCeloNativeCurrency(chainId)
   } else if (isBsc(chainId)) {
     nativeCurrency = new BscNativeCurrency(chainId)
+  } else if (isTrustkeys(chainId)) {
+    nativeCurrency = new TRUSTKNativeCurrency(chainId)
   } else {
     nativeCurrency = ExtendedEther.onChain(chainId)
   }

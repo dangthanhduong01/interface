@@ -16,7 +16,7 @@ import ms from 'ms.macro'
 import { darkTheme } from 'theme/colors'
 
 import { SupportedL1ChainId, SupportedL2ChainId } from './chains'
-import { ARBITRUM_LIST, CELO_LIST, OPTIMISM_LIST, PLASMA_BNB_LIST } from './lists'
+import { ARBITRUM_LIST, CELO_LIST, OPTIMISM_LIST, PLASMA_BNB_LIST, TRUSTKEYS_LIST } from './lists'
 
 export const AVERAGE_L1_BLOCK_TIME = ms`12s`
 
@@ -213,6 +213,19 @@ const CHAIN_INFO: ChainInfoMap = {
     defaultListUrl: PLASMA_BNB_LIST,
     color: darkTheme.chain_56,
     backgroundColor: darkTheme.chain_56_background,
+  },
+  [SupportedChainId.TRUSTKEYS]: {
+    networkType: NetworkType.L1,
+    blockWaitMsBeforeWarning: ms`10m`,
+    docs: 'https://trustkeys.network/',
+    explorer: 'https://l1testnetscan.trustkeys.network',
+    infoLink: 'https://trustkeys.network/',
+    label: 'Trustkeys',
+    logoUrl: 'https://soict.hust.edu.vn/innovation/wp-content/uploads/2022/01/Logo1x.14121cd7-1.png',
+    defaultListUrl: TRUSTKEYS_LIST,
+    nativeCurrency: { name: 'TRUSTK', symbol: 'TRUSTK', decimals: 18 },
+    color: darkTheme.chain_5,
+    // backgroundColor: darkTheme.chain_56_background,
   },
 }
 

@@ -18,9 +18,62 @@ export const CELO_LIST = 'https://celo-org.github.io/celo-token-list/celo.tokenl
 export const PLASMA_BNB_LIST = 'https://raw.githubusercontent.com/plasmadlt/plasma-finance-token-list/master/bnb.json'
 
 export const UNSUPPORTED_LIST_URLS: string[] = [BA_LIST, UNI_UNSUPPORTED_LIST]
+type Token = {
+  chainId: number
+  name: string
+  address: string
+  decimals: number
+  symbol: string
+  logoURI: string
+}
 
+type Version = {
+  major: number
+  minor: number
+  patch: number
+}
+
+type TokenList = {
+  name: string
+  logoURI: string
+  keywords: string[]
+  timestamp: string
+  tokens: Token[]
+  version: Version
+}
+const myTokenList: TokenList = {
+  name: 'Trustkeys Token List',
+  logoURI: 'https://soict.hust.edu.vn/innovation/wp-content/uploads/2022/01/Logo1x.14121cd7-1.png',
+  keywords: ['defi'],
+  timestamp: '2024-06-05T02:01:13.652+00:00',
+  tokens: [
+    {
+      chainId: 11968,
+      name: 'FIRSTCOIN',
+      address: '0x1ccF6A9b71c16E226C0Dff0B50EDd875375C84D0',
+      decimals: 18,
+      symbol: 'FC',
+      logoURI: 'https://explorer.waterfall.network/favicon-72-precomposed.png',
+    },
+    {
+      chainId: 11968,
+      name: 'ACOIN',
+      address: '0x7fA9d0EA98de26e3497455CbA80fbEebEdF7f6E9',
+      decimals: 18,
+      symbol: 'AC',
+      logoURI: 'https://explorer.waterfall.network/favicon-72-precomposed.png',
+    },
+  ],
+  version: {
+    major: 41,
+    minor: 0,
+    patch: 58,
+  },
+}
+// eslint-disable-next-line import/no-unused-modules
+export const TRUSTKEYS_LIST = JSON.stringify(myTokenList)
 // default lists to be 'active' aka searched across
-export const DEFAULT_ACTIVE_LIST_URLS: string[] = [UNI_LIST]
+export const DEFAULT_ACTIVE_LIST_URLS: string[] = [UNI_LIST, TRUSTKEYS_LIST]
 export const DEFAULT_INACTIVE_LIST_URLS: string[] = [
   UNI_EXTENDED_LIST,
   COMPOUND_LIST,
